@@ -9,12 +9,27 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.89.0",
+    "@tensorflow-models/mobilenet": "^2.1.1",
+    "@tensorflow/tfjs": "^4.22.0",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.26",
+    "konva": "^10.0.12",
+    "lucide-react": "^0.562.0",
     "next": "16.1.1",
+    "next-themes": "^0.4.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-konva": "^19.2.1",
+    "react-svg-worldmap": "^2.0.0-alpha.16",
+    "react-webcam": "^7.2.0",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

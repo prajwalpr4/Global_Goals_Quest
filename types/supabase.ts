@@ -191,6 +191,32 @@ export interface Database {
                     completed_at?: string
                 }
             }
+            user_scans: {
+                Row: {
+                    id: string
+                    user_id: string
+                    category: string
+                    object_name: string
+                    confidence: number
+                    scanned_at: string
+                }
+                Insert: {
+                    id?: string
+                    user_id: string
+                    category: string
+                    object_name: string
+                    confidence: number
+                    scanned_at?: string
+                }
+                Update: {
+                    id?: string
+                    user_id?: string
+                    category?: string
+                    object_name?: string
+                    confidence?: number
+                    scanned_at?: string
+                }
+            }
         }
     }
 }

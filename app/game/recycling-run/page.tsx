@@ -52,7 +52,7 @@ export default function RecyclingRunGame() {
     const playerXRef = useRef(GAME_WIDTH / 2 - BIN_WIDTH * 1.5)
     const fallingItemsRef = useRef<FallingItem[]>([])
     const lastSpawnTimeRef = useRef(0)
-    const animationFrameRef = useRef<number>()
+    const animationFrameRef = useRef<number | null>(null)
     const itemIdCounterRef = useRef(0)
     const keysPressed = useRef<Set<string>>(new Set())
 

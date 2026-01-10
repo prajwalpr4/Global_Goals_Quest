@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
 import { ChevronRight, CheckCircle, XCircle, Trophy, Home, Leaf } from 'lucide-react'
 import { Database } from '@/types/supabase'
+import { useToast } from '@/components/ui/Toast' // Keeping useToast as it is generally useful
 
 type Question = Database['public']['Tables']['questions']['Row']
 type Quest = Database['public']['Tables']['quests']['Row']
@@ -16,6 +17,7 @@ export default function QuestPlayer() {
     const { id } = useParams()
     const router = useRouter()
     const supabase = createClient()
+    const { toast } = useToast() // Initialize toast
 
     const [quest, setQuest] = useState<Quest | null>(null)
     const [allQuestions, setAllQuestions] = useState<Question[]>([]) // Store source of truth
@@ -34,15 +36,15 @@ export default function QuestPlayer() {
         const fetchQuestData = async () => {
             if (!id) return
 
-            const [questResult, questionsResult] = await Promise.all([
+            const [questResult, questionsResult]: [any, any] = await Promise.all([
                 supabase.from('quests').select('*').eq('id', Number(id)).single(),
                 supabase.from('questions').select('*').eq('quest_id', Number(id)).order('id', { ascending: true })
             ])
 
-            if (questResult.data) setQuest(questResult.data)
+            if (questResult.data) setQuest(questResult.data as any)
             if (questionsResult.data) {
-                setAllQuestions(questionsResult.data)
-                setQuestions(questionsResult.data)
+                setAllQuestions(questionsResult.data as any)
+                setQuestions(questionsResult.data as any)
             }
 
             setLoading(false)
@@ -105,6 +107,8 @@ export default function QuestPlayer() {
         resetQuizState()
     }
 
+
+
     const resetQuizState = () => {
         setCurrentQuestionIndex(0)
         setSelectedOption(null)
@@ -131,7 +135,7 @@ export default function QuestPlayer() {
             })
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const { data: profile } = await supabase.from('profiles').select('xp').eq('id', user.id).single()
+            const { data: profile } = await supabase.from('profiles').select('xp').eq('id', user.id).single() as any
             if (profile) {
                 const newXp = (profile.xp || 0) + finalScore
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -355,7 +359,7 @@ export default function QuestPlayer() {
                         >
                             {/* Header */}
                             <div className="flex justify-between items-center mb-8">
-                                <span className="text-sm font-bold tracking-wider text-slate-500 uppercase">
+                                <span className="text-sm font-bold tracking-wider text-slate-400 uppercase">
                                     Question {currentQuestionIndex + 1} of {questions.length}
                                 </span>
                                 <div className="flex items-center space-x-2 bg-blue-50 px-3 py-1 rounded-full text-blue-600 font-bold">
@@ -365,7 +369,7 @@ export default function QuestPlayer() {
                             </div>
 
                             {/* Question */}
-                            <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-8 leading-tight">
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-tight">
                                 {currentQuestion.question_text}
                             </h2>
 
@@ -379,12 +383,12 @@ export default function QuestPlayer() {
                                     let buttonStyle = "w-full text-left p-6 rounded-2xl border-2 transition-all duration-200 text-lg font-medium "
 
                                     if (showResult) {
-                                        if (isCorrect) buttonStyle += "border-green-500 bg-green-50 text-green-700 "
-                                        else if (isSelected) buttonStyle += "border-red-500 bg-red-50 text-red-700 "
-                                        else buttonStyle += "border-slate-100 opacity-50 "
+                                        if (isCorrect) buttonStyle += "border-green-500 bg-green-500/10 text-green-400 "
+                                        else if (isSelected) buttonStyle += "border-red-500 bg-red-500/10 text-red-400 "
+                                        else buttonStyle += "border-white/10 opacity-50 text-slate-400 "
                                     } else {
-                                        if (isSelected) buttonStyle += "border-blue-500 bg-blue-50 text-blue-700 shadow-md transform scale-[1.01] "
-                                        else buttonStyle += "border-slate-200 hover:border-blue-300 hover:bg-slate-50 "
+                                        if (isSelected) buttonStyle += "border-cyan-500 bg-cyan-500/10 text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.3)] transform scale-[1.01] "
+                                        else buttonStyle += "border-white/10 text-slate-200 hover:border-white/30 hover:bg-white/5 "
                                     }
 
                                     return (

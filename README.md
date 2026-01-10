@@ -22,7 +22,8 @@ This project focuses on empowering action through the following UN Sustainable D
 - **Audio Stories**: Text-to-speech narrated interactive stories with choices
 - **Flashcard Learning**: Study SDG facts with 3D flip animations
 - **Recycling Run Game**: Fast-paced browser game to test reflexes
-- **Eco-Lens Scanner**: AI-powered webcam object recognition (TensorFlow.js MobileNet)
+- **Eco-Lens Scanner**: AI-powered weekly photo missions (e.g., "Find a plant") for XP
+- **Smart Waste Sorter**: AI-powered tool to categorize waste into Recycle, Compost, or Trash
 
 ### 🏆 Gamification
 - **XP & Leveling**: Earn experience points and level up (Novice → Scout → Hero → Legend)
@@ -115,14 +116,16 @@ platform/
 │   ├── studio/           # Art creation studio
 │   ├── game/             # Mini-games
 │   │   └── recycling-run/
-│   └── audio-story/      # Interactive audio stories
+│   ├── audio-story/      # Interactive audio stories
+│   └── scanner/          # AI Waste Sorter page
 ├── components/
 │   ├── ui/               # Reusable UI components
 │   ├── QuestCard.tsx     # Quest display card
 │   ├── AvatarShop.tsx    # Avatar unlock shop
 │   ├── VirtualGarden.tsx # XP-based plant growth
 │   ├── DailyMysteryBox.tsx # Daily reward system
-│   └── WorldMapExplorer.tsx # Interactive map
+│   ├── WorldMapExplorer.tsx # Interactive map
+│   └── WasteScanner.tsx    # AI object classifier component
 ├── hooks/
 │   └── useNarrator.ts    # Text-to-speech hook
 ├── lib/
@@ -144,7 +147,8 @@ platform/
 - **`/studio`** - Sticker art creation
 - **`/game/recycling-run`** - Recycling mini-game
 - **`/audio-story/[sdgId]`** - Narrated interactive stories
-- **`/eco-lens`** - AI-powered object scanner
+- **`/eco-lens`** - Daily AI Photo Missions
+- **`/scanner`** - Smart Waste Sorter
 
 ## 🌟 Future Enhancements
 

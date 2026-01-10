@@ -262,6 +262,11 @@ export default function DashboardClient() {
                                         Eco-Lens 📸
                                     </Button>
                                 </Link>
+                                <Link href="/scanner">
+                                    <Button className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-md">
+                                        Waste Sorter 🗑️
+                                    </Button>
+                                </Link>
                             </div>
                         </motion.div>
                     </div>

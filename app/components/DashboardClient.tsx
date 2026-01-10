@@ -91,7 +91,11 @@ export default function DashboardClient() {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const completedQuestIds = new Set(userProgress.map((p: any) => p.quest_id))
                 const countries = new Set<string>()
-                questsData.forEach(q => {
+
+                // Cast to Quest[] to recognize country_code
+                const localQuests = questsData as unknown as Quest[]
+
+                localQuests.forEach(q => {
                     if (q.country_code && completedQuestIds.has(q.id)) {
                         countries.add(q.country_code)
                     }
@@ -320,7 +324,7 @@ export default function DashboardClient() {
                         <div className="col-span-full py-20 bg-white/5 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 flex flex-col items-center justify-center text-center">
                             <span className="text-4xl mb-4">🌍</span>
                             <p className="text-slate-500 text-lg font-medium">No quests found for this region yet.</p>
-                            <Button variant="link" onClick={() => setSelectedCountry(null)} className="mt-2 text-blue-500">
+                            <Button variant="ghost" onClick={() => setSelectedCountry(null)} className="mt-2 text-blue-500 hover:underline">
                                 Show all global quests
                             </Button>
                         </div>

@@ -18,7 +18,7 @@ import { VirtualGarden } from '@/components/VirtualGarden'
 import { WorldMapExplorer } from '@/components/WorldMapExplorer'
 import { DailyMysteryBox } from '@/components/DailyMysteryBox'
 
-type Quest = Database['public']['Tables']['quests']['Row']
+type Quest = Database['public']['Tables']['quests']['Row'] & { country_code?: string }
 type Profile = Database['public']['Tables']['profiles']['Row']
 type Achievement = Database['public']['Tables']['achievements']['Row']
 
@@ -50,10 +50,11 @@ export default function DashboardClient() {
                 .single()
 
             if (profileData) {
-                const { newStreak, shouldUpdate } = checkStreak(profileData.last_active_at, profileData.streak_count || 0)
+                const profile = profileData as Profile
+                const { newStreak, shouldUpdate } = checkStreak(profile.last_active_at || new Date().toISOString(), profile.streak_count || 0)
 
                 if (shouldUpdate) {
-                    setProfile({ ...profileData, streak_count: newStreak, last_active_at: new Date().toISOString() })
+                    setProfile({ ...profile, streak_count: newStreak, last_active_at: new Date().toISOString() })
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     await (supabase.from('profiles') as any).update({
                         streak_count: newStreak,

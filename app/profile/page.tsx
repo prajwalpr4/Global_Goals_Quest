@@ -104,7 +104,7 @@ export default function ProfilePage() {
             .eq('id', profile.id)
 
         if (!error) {
-            setProfile({ ...profile, ...formData })
+            setProfile({ ...profile, ...formData } as Profile)
             setIsEditing(false)
             toast('Profile updated successfully!', 'success')
         } else {

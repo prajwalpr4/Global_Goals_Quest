@@ -65,7 +65,8 @@ export default function StudioPage() {
             const { data: { user } } = await supabase.auth.getUser()
 
             if (user) {
-                const { error } = await supabase.from('user_artworks').insert({
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const { error } = await (supabase.from('user_artworks') as any).insert({
                     user_id: user.id,
                     image_data: dataUrl
                 })

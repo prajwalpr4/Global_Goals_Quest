@@ -98,9 +98,10 @@ export default function ProfilePage() {
             }
         }
 
-        const { error } = await supabase
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { error } = await (supabase
             .from('profiles')
-            .update({ username: formData.username, full_name: formData.full_name })
+            .update({ username: formData.username, full_name: formData.full_name }) as any)
             .eq('id', profile.id)
 
         if (!error) {

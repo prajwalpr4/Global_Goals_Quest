@@ -7,7 +7,9 @@ export const LEVELS = [
 ]
 
 export const getLevel = (xp: number) => {
-    return LEVELS.slice().reverse().find(l => xp >= l.minXp) || LEVELS[0]
+    const level = LEVELS.slice().reverse().find(l => xp >= l.minXp) || LEVELS[0]
+    const levelIndex = LEVELS.indexOf(level) + 1
+    return { ...level, level: levelIndex }
 }
 
 export const getNextLevel = (xp: number) => {

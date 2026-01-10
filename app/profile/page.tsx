@@ -49,8 +49,9 @@ export default function ProfilePage() {
                 .single()
 
             if (profileData) {
-                setProfile(profileData)
-                setFormData({ username: profileData.username || '', full_name: profileData.full_name || '' })
+                const profile = profileData as Profile
+                setProfile(profile)
+                setFormData({ username: profile.username || '', full_name: profile.full_name || '' })
             }
 
             // Fetch Achievements

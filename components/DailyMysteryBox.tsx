@@ -6,6 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Gift, Sparkles, Trophy, Lightbulb, X } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import confetti from 'canvas-confetti'
+import { Database } from '@/types/supabase'
+
+type ProfileRow = Database['public']['Tables']['profiles']['Row']
+type ProfileUpdate = Database['public']['Tables']['profiles']['Update']
 
 interface DailyMysteryBoxProps {
     userId: string
@@ -53,7 +57,7 @@ export function DailyMysteryBox({ userId, currentXP, onRewardClaimed }: DailyMys
                 .from('profiles')
                 .select('last_box_open_at')
                 .eq('id', userId)
-                .single()
+                .single<ProfileRow>()
 
             if (data) {
                 const lastOpen = data.last_box_open_at
@@ -86,7 +90,7 @@ export function DailyMysteryBox({ userId, currentXP, onRewardClaimed }: DailyMys
                 .from('profiles')
                 .select('last_box_open_at')
                 .eq('id', userId)
-                .single()
+                .single<ProfileRow>()
 
             if (data?.last_box_open_at) {
                 const lastOpen = new Date(data.last_box_open_at).getTime()
@@ -167,25 +171,28 @@ export function DailyMysteryBox({ userId, currentXP, onRewardClaimed }: DailyMys
             })
 
             // Update database
-            const updates: any = {
-                last_box_open_at: new Date().toISOString()
-            }
-
             let newXP = currentXP
             let newAvatar: string | undefined
 
             if (newReward.type === 'xp') {
                 newXP = currentXP + (newReward.value as number)
-                updates.xp = newXP
+                await supabase
+                    .from('profiles')
+                    .update({ xp: newXP, last_box_open_at: new Date().toISOString() } as ProfileUpdate)
+                    .eq('id', userId)
             } else if (newReward.type === 'avatar') {
                 newAvatar = newReward.value as string
-                updates.avatar_url = `https://api.dicebear.com/7.x/micah/svg?seed=${newAvatar}`
+                const avatarUrl = `https://api.dicebear.com/7.x/micah/svg?seed=${newAvatar}`
+                await supabase
+                    .from('profiles')
+                    .update({ avatar_url: avatarUrl, last_box_open_at: new Date().toISOString() } as ProfileUpdate)
+                    .eq('id', userId)
+            } else {
+                await supabase
+                    .from('profiles')
+                    .update({ last_box_open_at: new Date().toISOString() } as ProfileUpdate)
+                    .eq('id', userId)
             }
-
-            await supabase
-                .from('profiles')
-                .update(updates)
-                .eq('id', userId)
 
             // Notify parent component
             onRewardClaimed(newXP, newAvatar)

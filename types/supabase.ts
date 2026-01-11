@@ -48,6 +48,7 @@ export interface Database {
                     avatar_url: string | null
                     created_at: string
                     full_name: string | null
+                    last_box_open_at: string | null
                 }
                 Insert: {
                     id: string
@@ -58,6 +59,7 @@ export interface Database {
                     last_active_at?: string | null
                     avatar_url?: string | null
                     created_at?: string
+                    last_box_open_at?: string | null
                 }
                 Update: {
                     id?: string
@@ -68,6 +70,7 @@ export interface Database {
                     last_active_at?: string | null
                     avatar_url?: string | null
                     created_at?: string
+                    last_box_open_at?: string | null
                 }
             }
             quests: {

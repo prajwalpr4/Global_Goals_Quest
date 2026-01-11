@@ -12,10 +12,10 @@ export default function EcoLensPage() {
     const [profile, setProfile] = useState<any>(null)
     const [loading, setLoading] = useState(true)
     const router = useRouter()
-    const supabase = createClient()
 
     useEffect(() => {
         const fetchProfile = async () => {
+            const supabase = createClient()
             const { data: { user } } = await supabase.auth.getUser()
             if (!user) {
                 router.push('/login')
@@ -33,7 +33,7 @@ export default function EcoLensPage() {
         }
 
         fetchProfile()
-    }, [router, supabase])
+    }, [router])
 
     const handleXPUpdate = (newXP: number) => {
         if (profile) {

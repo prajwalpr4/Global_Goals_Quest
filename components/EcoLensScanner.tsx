@@ -112,7 +112,6 @@ export function EcoLensScanner({ userId, currentXP, onXPUpdate }: EcoLensScanner
     const [debugPredictions, setDebugPredictions] = useState<string[]>([])
 
     const webcamRef = useRef<Webcam>(null)
-    const supabase = createClient()
 
     // Load TensorFlow model
     useEffect(() => {
@@ -140,6 +139,7 @@ export function EcoLensScanner({ userId, currentXP, onXPUpdate }: EcoLensScanner
     // Fetch scan history
     useEffect(() => {
         const fetchHistory = async () => {
+            const supabase = createClient()
             const { data } = await supabase
                 .from('user_scans')
                 .select('*')
@@ -158,7 +158,7 @@ export function EcoLensScanner({ userId, currentXP, onXPUpdate }: EcoLensScanner
         }
 
         fetchHistory()
-    }, [userId, supabase])
+    }, [userId])
 
     // Cooldown timer
     useEffect(() => {
@@ -227,6 +227,7 @@ export function EcoLensScanner({ userId, currentXP, onXPUpdate }: EcoLensScanner
                     onXPUpdate(newXP)
 
                     // Update database
+                    const supabase = createClient()
                     await supabase.from('profiles').update({ xp: newXP }).eq('id', userId)
 
                     // Save scan

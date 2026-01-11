@@ -51,7 +51,7 @@ export function FlashcardDeck({ cards, currentIndex, onNext, onPrev }: Flashcard
                     className="w-full h-full relative preserve-3d transition-all duration-500"
                     initial={false}
                     animate={{ rotateY: isFlipped ? 180 : 0 }}
-                    transition={{ duration: 0.6, animationDirection: "normal" }}
+                    transition={{ duration: 0.6 }}
                     onAnimationComplete={() => setIsAnimating(false)}
                     style={{ transformStyle: 'preserve-3d' }}
                 >

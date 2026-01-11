@@ -72,6 +72,46 @@ export interface Database {
                     created_at?: string
                     last_box_open_at?: string | null
                 }
+                Relationships: []
+            }
+            story_nodes: {
+                Row: {
+                    id: string
+                    sdg_number: number
+                    node_order: number
+                    content: string
+                    choice_a_text: string | null
+                    choice_b_text: string | null
+                    next_node_a_id: string | null
+                    next_node_b_id: string | null
+                    is_ending: boolean
+                    created_at: string
+                }
+                Insert: {
+                    id?: string
+                    sdg_number: number
+                    node_order?: number
+                    content: string
+                    choice_a_text?: string | null
+                    choice_b_text?: string | null
+                    next_node_a_id?: string | null
+                    next_node_b_id?: string | null
+                    is_ending?: boolean
+                    created_at?: string
+                }
+                Update: {
+                    id?: string
+                    sdg_number?: number
+                    node_order?: number
+                    content?: string
+                    choice_a_text?: string | null
+                    choice_b_text?: string | null
+                    next_node_a_id?: string | null
+                    next_node_b_id?: string | null
+                    is_ending?: boolean
+                    created_at?: string
+                }
+                Relationships: []
             }
             quests: {
                 Row: {
@@ -101,6 +141,7 @@ export interface Database {
                     icon?: string | null
                     type?: 'quiz' | 'action'
                 }
+                Relationships: []
             }
             questions: {
                 Row: {
@@ -127,6 +168,7 @@ export interface Database {
                     correct_answer_index?: number
                     explanation?: string | null
                 }
+                Relationships: []
             }
             achievements: {
                 Row: {
@@ -150,6 +192,7 @@ export interface Database {
                     icon?: string
                     xp_reward?: number
                 }
+                Relationships: []
             }
             user_achievements: {
                 Row: {
@@ -170,6 +213,7 @@ export interface Database {
                     achievement_id?: string
                     unlocked_at?: string
                 }
+                Relationships: []
             }
             user_progress: {
                 Row: {
@@ -193,6 +237,7 @@ export interface Database {
                     score?: number
                     completed_at?: string
                 }
+                Relationships: []
             }
             user_scans: {
                 Row: {
@@ -219,6 +264,7 @@ export interface Database {
                     confidence?: number
                     scanned_at?: string
                 }
+                Relationships: []
             }
             user_artworks: {
                 Row: {
@@ -239,7 +285,12 @@ export interface Database {
                     image_data?: string
                     created_at?: string
                 }
+                Relationships: []
             }
         }
+        Views: {}
+        Functions: {}
+        Enums: {}
+        CompositeTypes: {}
     }
 }
